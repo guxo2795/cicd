@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'Corretto'
+          distribution: 'corretto'
 
       - name: Grant execute permission
         run: chmod +x ./gradlew
