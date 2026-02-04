@@ -25,3 +25,11 @@ jobs:
 
       - name: Build
         run: ./gradlew build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fake Deploy
+        run: echo "🚀 Deploy step executed"
