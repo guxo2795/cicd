@@ -1,13 +1,16 @@
 name: Spring Boot CI
 
+# 언제 실행할지
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+# 무엇을 할지
 jobs:
   build:
+    # 어떤 환경에서
     runs-on: ubuntu-latest
 
     steps:
@@ -31,5 +34,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Fake Deploy
-        run: echo "🚀 Deploy step executed"
+      - uses: actions/checkout@v4
+
+      - name: Docker build
+        run: docker build -t spring-docker-cd .
