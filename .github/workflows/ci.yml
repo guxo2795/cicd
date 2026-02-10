@@ -1,4 +1,4 @@
-name: Spring Boot CI
+name: Spring Boot CI/CD
 
 # 언제 실행할지
 on:
@@ -9,7 +9,7 @@ on:
 
 # 무엇을 할지
 jobs:
-  build:
+  build-and-docker:
     # 어떤 환경에서
     runs-on: ubuntu-latest
 
@@ -27,14 +27,14 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew clean build
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+      # 빌드된 파일이 있는지 확인 (디버깅용)
+      - name: Check build artifact
+        run: ls -l build/libs/
 
-    steps:
-      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Docker build
+      - name: Build Docker image
         run: docker build -t spring-docker-cd .
